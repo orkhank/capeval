@@ -17,7 +17,7 @@ CACHE_DIR = 'cache'
 
 class Spice:
     """
-    Main Class to compute the SPICE metric 
+    Main Class to compute the SPICE metric
     """
 
     def __init__(self):
@@ -32,7 +32,7 @@ class Spice:
     def compute_score(self, gts, res):
         assert(sorted(gts.keys()) == sorted(res.keys()))
         imgIds = sorted(gts.keys())
-        
+
         # Prepare temp input file for the SPICE scorer
         input_data = []
         for id in imgIds:
@@ -72,11 +72,11 @@ class Spice:
           '-subset',
           '-silent'
         ]
-        subprocess.check_call(spice_cmd, 
+        subprocess.check_call(spice_cmd,
             cwd=os.path.dirname(os.path.abspath(__file__)))
 
         # Read and process results
-        with open(out_file.name) as data_file:    
+        with open(out_file.name) as data_file:
           results = json.load(data_file)
         os.remove(in_file.name)
         os.remove(out_file.name)
