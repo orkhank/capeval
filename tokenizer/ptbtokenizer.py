@@ -19,8 +19,10 @@ import tempfile
 STANFORD_CORENLP_3_4_1_JAR = 'stanford-corenlp-3.4.1.jar'
 
 # punctuations to be removed from the sentences
-PUNCTUATIONS = ["''", "'", "``", "`", "-LRB-", "-RRB-", "-LCB-", "-RCB-", \
-        ".", "?", "!", ",", ":", "-", "--", "...", ";"]
+PUNCTUATIONS = [
+    "''", "'", "``", "`", "-LRB-", "-RRB-", "-LCB-", "-RCB-", \
+        ".", "?", "!", ",", ":", "-", "--", "...", ";",
+]
 
 class PTBTokenizer:
     """Python wrapper of Stanford PTBTokenizer"""
@@ -28,9 +30,11 @@ class PTBTokenizer:
         self.verbose = verbose
 
     def tokenize(self, captions_for_image):
-        cmd = ['java', '-cp', STANFORD_CORENLP_3_4_1_JAR, \
+        cmd = [
+            'java', '-cp', STANFORD_CORENLP_3_4_1_JAR, \
                 'edu.stanford.nlp.process.PTBTokenizer', \
-                '-preserveLines', '-lowerCase']
+                '-preserveLines', '-lowerCase',
+        ]
 
         # ======================================================
         # prepare data for PTB Tokenizer
@@ -52,11 +56,15 @@ class PTBTokenizer:
         # ======================================================
         cmd.append(os.path.basename(tmp_file.name))
         if self.verbose:
-            p_tokenizer = subprocess.Popen(cmd, cwd=path_to_jar_dirname, \
-                stdout=subprocess.PIPE)
+            p_tokenizer = subprocess.Popen(
+                cmd, cwd=path_to_jar_dirname, \
+                stdout=subprocess.PIPE,
+            )
         else:
-            p_tokenizer = subprocess.Popen(cmd, cwd=path_to_jar_dirname, \
-                stdout=subprocess.PIPE, stderr=subprocess.DEVNULL)
+            p_tokenizer = subprocess.Popen(
+                cmd, cwd=path_to_jar_dirname, \
+                stdout=subprocess.PIPE, stderr=subprocess.DEVNULL,
+            )
         token_lines = p_tokenizer.communicate(input=sentences.rstrip())[0]
         token_lines = token_lines.decode()
         lines = token_lines.split('\n')
@@ -69,8 +77,10 @@ class PTBTokenizer:
         for k, line in zip(image_id, lines):
             if not k in final_tokenized_captions_for_image:
                 final_tokenized_captions_for_image[k] = []
-            tokenized_caption = ' '.join([w for w in line.rstrip().split(' ') \
-                    if w not in PUNCTUATIONS])
+            tokenized_caption = ' '.join([
+                w for w in line.rstrip().split(' ') \
+                    if w not in PUNCTUATIONS
+            ])
             final_tokenized_captions_for_image[k].append(tokenized_caption)
 
         return final_tokenized_captions_for_image

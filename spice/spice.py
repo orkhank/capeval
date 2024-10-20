@@ -50,15 +50,17 @@ class Spice:
             input_data.append({
               "image_id" : id,
               "test" : hypo[0],
-              "refs" : ref
+              "refs" : ref,
             })
 
         cwd = os.path.dirname(os.path.abspath(__file__))
         temp_dir=os.path.join(cwd, TEMP_DIR)
         if not os.path.exists(temp_dir):
           os.makedirs(temp_dir)
-        in_file = tempfile.NamedTemporaryFile(delete=False, dir=temp_dir,
-                                              mode='w+')
+        in_file = tempfile.NamedTemporaryFile(
+            delete=False, dir=temp_dir,
+            mode='w+',
+        )
         json.dump(input_data, in_file, indent=2)
         in_file.close()
 
@@ -68,14 +70,17 @@ class Spice:
         cache_dir=os.path.join(cwd, CACHE_DIR)
         if not os.path.exists(cache_dir):
           os.makedirs(cache_dir)
-        spice_cmd = ['java', '-jar', '-Xmx8G', SPICE_JAR, in_file.name,
-          '-cache', cache_dir,
-          '-out', out_file.name,
-          '-subset',
-          '-silent'
+        spice_cmd = [
+            'java', '-jar', '-Xmx8G', SPICE_JAR, in_file.name,
+              '-cache', cache_dir,
+              '-out', out_file.name,
+              '-subset',
+              '-silent',
         ]
-        subprocess.check_call(spice_cmd,
-            cwd=os.path.dirname(os.path.abspath(__file__)))
+        subprocess.check_call(
+            spice_cmd,
+            cwd=os.path.dirname(os.path.abspath(__file__)),
+        )
 
         # Read and process results
         with open(out_file.name) as data_file:

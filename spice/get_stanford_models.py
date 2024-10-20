@@ -35,8 +35,10 @@ def get_stanford_models():
         target_name = os.path.join(SPICEDIR, SPICELIB, JAR)
         for filef in ['{}.jar', '{}-models.jar']:
             ZipFile(zip_file).extract(filef.format(zip_file_name), SPICEDIR)
-            os.rename(os.path.join(SPICEDIR, filef.format(file_name)),
-                      filef.format(target_name))
+            os.rename(
+                os.path.join(SPICEDIR, filef.format(file_name)),
+                filef.format(target_name),
+            )
 
         os.rmdir(os.path.join(SPICEDIR, CORENLP))
         os.remove(zip_file)

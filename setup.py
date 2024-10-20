@@ -21,5 +21,5 @@ setup(
     package_dir={'pycocoevalcap': '.'},
     package_data={'': ['*.jar', '*.gz']},
     install_requires=['pycocotools>=2.0.2'],
-    python_requires='>=3'
+    python_requires='>=3',
 )
