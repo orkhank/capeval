@@ -1,5 +1,6 @@
 from __future__ import annotations
-__author__ = 'tylin'
+
+__author__ = "tylin"
 from .tokenizer.ptbtokenizer import PTBTokenizer
 from .bleu.bleu import Bleu
 from .meteor.meteor import Meteor
@@ -15,10 +16,10 @@ class COCOEvalCap:
         self.imgToEval = {}
         self.coco = coco
         self.cocoRes = cocoRes
-        self.params = {'image_id': coco.getImgIds()}
+        self.params = {"image_id": coco.getImgIds()}
 
     def evaluate(self):
-        imgIds = self.params['image_id']
+        imgIds = self.params["image_id"]
         # imgIds = self.coco.getImgIds()
         gts = {}
         res = {}
@@ -29,7 +30,7 @@ class COCOEvalCap:
         # =================================================
         # Set up scorers
         # =================================================
-        print('tokenization...')
+        print("tokenization...")
         tokenizer = PTBTokenizer()
         gts = tokenizer.tokenize(gts)
         res = tokenizer.tokenize(res)
@@ -37,7 +38,7 @@ class COCOEvalCap:
         # =================================================
         # Set up scorers
         # =================================================
-        print('setting up scorers...')
+        print("setting up scorers...")
         scorers = [
             (Bleu(4), ["Bleu_1", "Bleu_2", "Bleu_3", "Bleu_4"]),
             (Meteor(), "METEOR"),
@@ -50,7 +51,7 @@ class COCOEvalCap:
         # Compute scores
         # =================================================
         for scorer, method in scorers:
-            print('computing %s score...' % (scorer.method()))
+            print("computing %s score..." % (scorer.method()))
             score, scores = scorer.compute_score(gts, res)
             if isinstance(method, list):
                 for sc, scs, m in zip(score, scores, method):
