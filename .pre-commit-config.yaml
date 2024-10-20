@@ -15,3 +15,7 @@ repos:
         args: [--autofix, --no-ensure-ascii, --no-sort-keys]
       - id: check-ast
       - id: debug-statements
+-   repo: https://github.com/asottile/setup-cfg-fmt
+    rev: v2.7.0
+    hooks:
+    -   id: setup-cfg-fmt
