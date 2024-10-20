@@ -38,7 +38,8 @@ class Bleu:
 
         # score, scores = bleu_scorer.compute_score(option='shortest')
         score, scores = bleu_scorer.compute_score(
-            option='closest', verbose=verbose,
+            option="closest",
+            verbose=verbose,
         )
         # score, scores = bleu_scorer.compute_score(
         #     option="average",
