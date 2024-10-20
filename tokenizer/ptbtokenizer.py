@@ -7,12 +7,13 @@
 # Creation Date : 29-12-2014
 # Last Modified : Thu Mar 19 09:53:35 2015
 # Authors : Hao Fang <hfang@uw.edu> and Tsung-Yi Lin <tl483@cornell.edu>
+from __future__ import annotations
 
-import os
-import sys
-import subprocess
-import tempfile
 import itertools
+import os
+import subprocess
+import sys
+import tempfile
 
 # path to the stanford corenlp jar
 STANFORD_CORENLP_3_4_1_JAR = 'stanford-corenlp-3.4.1.jar'

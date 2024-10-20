@@ -1,11 +1,13 @@
 #!/usr/bin/env python
 # Tsung-Yi Lin <tl483@cornell.edu>
 # Ramakrishna Vedantam <vrama91@vt.edu>
+from __future__ import annotations
 
 import copy
-from collections import defaultdict
-import numpy as np
 import math
+from collections import defaultdict
+
+import numpy as np
 
 def precook(s, n=4, out=False):
     """

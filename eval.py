@@ -1,3 +1,4 @@
+from __future__ import annotations
 __author__ = 'tylin'
 from .tokenizer.ptbtokenizer import PTBTokenizer
 from .bleu.bleu import Bleu

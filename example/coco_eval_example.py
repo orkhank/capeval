@@ -1,5 +1,7 @@
-from pycocotools.coco import COCO
+from __future__ import annotations
+
 from pycocoevalcap.eval import COCOEvalCap
+from pycocotools.coco import COCO
 
 annotation_file = 'captions_val2014.json'
 results_file = 'captions_val2014_fakecap_results.json'

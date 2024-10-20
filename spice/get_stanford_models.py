@@ -1,5 +1,7 @@
 #!/usr/bin/python
 # This script downloads the Stanford CoreNLP models.
+from __future__ import annotations
+
 import os
 from urllib.request import urlretrieve
 from zipfile import ZipFile

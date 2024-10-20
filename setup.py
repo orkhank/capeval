@@ -1,4 +1,7 @@
-from setuptools import setup, find_namespace_packages
+from __future__ import annotations
+
+from setuptools import find_namespace_packages
+from setuptools import setup
 
 # Prepend pycocoevalcap to package names
 package_names = ['pycocoevalcap.'+p for p in find_namespace_packages()]
