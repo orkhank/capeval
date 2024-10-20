@@ -6,7 +6,7 @@ Evaluation codes for MS COCO caption generation.
 ## Description ##
 This repository provides Python 3 support for the caption evaluation metrics used for the MS COCO dataset.
 
-The code is derived from the original repository that supports Python 2.7: https://github.com/tylin/coco-caption.  
+The code is derived from the original repository that supports Python 2.7: https://github.com/tylin/coco-caption.
 Caption evaluation depends on the COCO API that natively supports Python 3.
 
 ## Requirements ##

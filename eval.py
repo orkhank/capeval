@@ -1,3 +1,4 @@
+from __future__ import annotations
 __author__ = 'tylin'
 from .tokenizer.ptbtokenizer import PTBTokenizer
 from .bleu.bleu import Bleu
@@ -30,7 +31,7 @@ class COCOEvalCap:
         # =================================================
         print('tokenization...')
         tokenizer = PTBTokenizer()
-        gts  = tokenizer.tokenize(gts)
+        gts = tokenizer.tokenize(gts)
         res = tokenizer.tokenize(res)
 
         # =================================================
@@ -39,27 +40,27 @@ class COCOEvalCap:
         print('setting up scorers...')
         scorers = [
             (Bleu(4), ["Bleu_1", "Bleu_2", "Bleu_3", "Bleu_4"]),
-            (Meteor(),"METEOR"),
+            (Meteor(), "METEOR"),
             (Rouge(), "ROUGE_L"),
             (Cider(), "CIDEr"),
-            (Spice(), "SPICE")
+            (Spice(), "SPICE"),
         ]
 
         # =================================================
         # Compute scores
         # =================================================
         for scorer, method in scorers:
-            print('computing %s score...'%(scorer.method()))
+            print('computing %s score...' % (scorer.method()))
             score, scores = scorer.compute_score(gts, res)
-            if type(method) == list:
+            if isinstance(method, list):
                 for sc, scs, m in zip(score, scores, method):
                     self.setEval(sc, m)
                     self.setImgToEvalImgs(scs, gts.keys(), m)
-                    print("%s: %0.3f"%(m, sc))
+                    print(f"{m}: {sc:0.3f}")
             else:
                 self.setEval(score, method)
                 self.setImgToEvalImgs(scores, gts.keys(), method)
-                print("%s: %0.3f"%(method, score))
+                print(f"{method}: {score:0.3f}")
         self.setEvalImgs()
 
     def setEval(self, score, method):
@@ -67,7 +68,7 @@ class COCOEvalCap:
 
     def setImgToEvalImgs(self, scores, imgIds, method):
         for imgId, score in zip(imgIds, scores):
-            if not imgId in self.imgToEval:
+            if imgId not in self.imgToEval:
                 self.imgToEval[imgId] = {}
                 self.imgToEval[imgId]["image_id"] = imgId
             self.imgToEval[imgId][method] = score
