@@ -39,9 +39,9 @@ class Meteor:
         for i in imgIds:
             assert(len(res[i]) == 1)
             stat = self._stat(res[i][0], gts[i])
-            eval_line += ' ||| {}'.format(stat)
+            eval_line += f' ||| {stat}'
 
-        self.meteor_p.stdin.write('{}\n'.format(eval_line).encode())
+        self.meteor_p.stdin.write(f'{eval_line}\n'.encode())
         self.meteor_p.stdin.flush()
         for i in range(0,len(imgIds)):
             scores.append(float(self.meteor_p.stdout.readline().strip()))
@@ -57,7 +57,7 @@ class Meteor:
         # SCORE ||| reference 1 words ||| reference n words ||| hypothesis words
         hypothesis_str = hypothesis_str.replace('|||','').replace('  ',' ')
         score_line = ' ||| '.join(('SCORE', ' ||| '.join(reference_list), hypothesis_str))
-        self.meteor_p.stdin.write('{}\n'.format(score_line).encode())
+        self.meteor_p.stdin.write(f'{score_line}\n'.encode())
         self.meteor_p.stdin.flush()
         return self.meteor_p.stdout.readline().decode().strip()
 
@@ -66,11 +66,11 @@ class Meteor:
         # SCORE ||| reference 1 words ||| reference n words ||| hypothesis words
         hypothesis_str = hypothesis_str.replace('|||','').replace('  ',' ')
         score_line = ' ||| '.join(('SCORE', ' ||| '.join(reference_list), hypothesis_str))
-        self.meteor_p.stdin.write('{}\n'.format(score_line))
+        self.meteor_p.stdin.write(f'{score_line}\n')
         stats = self.meteor_p.stdout.readline().strip()
-        eval_line = 'EVAL ||| {}'.format(stats)
+        eval_line = f'EVAL ||| {stats}'
         # EVAL ||| stats
-        self.meteor_p.stdin.write('{}\n'.format(eval_line))
+        self.meteor_p.stdin.write(f'{eval_line}\n')
         score = float(self.meteor_p.stdout.readline().strip())
         # bug fix: there are two values returned by the jar file, one average, and one all, so do it twice
         # thanks for Andrej for pointing this out

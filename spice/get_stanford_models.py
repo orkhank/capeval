@@ -21,14 +21,14 @@ def print_progress(transferred_blocks, block_size, total_size):
 
 
 def get_stanford_models():
-    jar_name = os.path.join(SPICEDIR, SPICELIB, '{}.jar'.format(JAR))
+    jar_name = os.path.join(SPICEDIR, SPICELIB, f'{JAR}.jar')
     # Only download file if file does not yet exist. Else: do nothing
     if not os.path.exists(jar_name):
-        print('Downloading {} for SPICE ...'.format(JAR))
-        url = 'http://nlp.stanford.edu/software/{}.zip'.format(CORENLP)
+        print(f'Downloading {JAR} for SPICE ...')
+        url = f'http://nlp.stanford.edu/software/{CORENLP}.zip'
         zip_file, headers = urlretrieve(url, reporthook=print_progress)
         print()
-        print('Extracting {} ...'.format(JAR))
+        print(f'Extracting {JAR} ...')
         file_name = os.path.join(CORENLP, JAR)
         # file names in zip use '/' separator regardless of OS
         zip_file_name = '/'.join([CORENLP, JAR])

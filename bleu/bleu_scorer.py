@@ -82,7 +82,7 @@ def cook_test(test, refs, eff=None, n=4):
 
     return result
 
-class BleuScorer(object):
+class BleuScorer:
     """Bleu scorer.
     """
 

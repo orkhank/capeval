@@ -45,7 +45,7 @@ def cook_test(test, n=4):
     '''
     return precook(test, n, True)
 
-class CiderScorer(object):
+class CiderScorer:
     """CIDEr scorer.
     """
 
@@ -100,7 +100,7 @@ class CiderScorer(object):
         '''
         for refs in self.crefs:
             # refs, k ref captions of one image
-            for ngram in set([ngram for ref in refs for (ngram,count) in ref.items()]):
+            for ngram in {ngram for ref in refs for (ngram,count) in ref.items()}:
                 self.document_frequency[ngram] += 1
             # maxcounts[ngram] = max(maxcounts.get(ngram,0), count)
 

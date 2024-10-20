@@ -6,7 +6,7 @@ from setuptools import setup
 # Prepend pycocoevalcap to package names
 package_names = ['pycocoevalcap.'+p for p in find_namespace_packages()]
 
-with open("README.md", "r") as fh:
+with open("README.md") as fh:
     readme = fh.read()
 
 setup(
