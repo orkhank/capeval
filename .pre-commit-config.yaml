@@ -13,3 +13,4 @@ repos:
       - id: check-yaml
       - id: pretty-format-json
         args: [--autofix, --no-ensure-ascii, --no-sort-keys]
+      - id: check-ast
