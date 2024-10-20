@@ -1,12 +1,9 @@
 from __future__ import annotations
 
-import ast
 import json
 import os
 import subprocess
-import sys
 import tempfile
-import threading
 
 import numpy as np
 
@@ -29,7 +26,7 @@ class Spice:
     def float_convert(self, obj):
         try:
             return float(obj)
-        except:
+        except ValueError:
             return np.nan
 
     def compute_score(self, gts, res):

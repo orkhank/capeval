@@ -8,15 +8,15 @@
 # Hao Fang <hfang@uw.edu>
 # Tsung-Yi Lin <tl483@cornell.edu>
 '''Provides:
-cook_refs(refs, n=4): Transform a list of reference sentences as strings into a form usable by cook_test().
-cook_test(test, refs, n=4): Transform a test sentence as a string (together with the cooked reference sentences) into a form usable by score_cooked().
+cook_refs(refs, n=4): Transform a list of reference sentences as strings into\
+    a form usable by cook_test().
+cook_test(test, refs, n=4): Transform a test sentence as a string (together\
+    with the cooked reference sentences) into a form usable by score_cooked().
 '''
 from __future__ import annotations
 
 import copy
 import math
-import re
-import sys
 from collections import defaultdict
 
 
@@ -71,7 +71,9 @@ def cook_test(test, refs, eff=None, n=4):
     # Calculate effective reference sentence length.
 
     if eff == "closest":
-        result["reflen"] = min((abs(l-testlen), l) for l in reflen)[1]
+        result["reflen"] = min(
+            (abs(length - testlen), length) for length in reflen
+        )[1]
     else:  # i.e., "average" or "shortest" or None
         result["reflen"] = reflen
 
@@ -94,8 +96,18 @@ class BleuScorer:
     """Bleu scorer.
     """
 
-    __slots__ = "n", "crefs", "ctest", "_score", "_ratio", "_testlen", "_reflen", "special_reflen"
-    # special_reflen is used in oracle (proportional effective ref len for a node).
+    __slots__ = (
+        "n",
+        "crefs",
+        "ctest",
+        "_score",
+        "_ratio",
+        "_testlen",
+        "_reflen",
+        "special_reflen",
+    )
+    # special_reflen is used in oracle
+    # (proportional effective ref len for a node).
 
     def copy(self):
         ''' copy the refs.'''
@@ -115,7 +127,8 @@ class BleuScorer:
         self.special_reflen = special_reflen
 
     def cook_append(self, test, refs):
-        '''called by constructor and __iadd__ to avoid creating new instances.'''
+        '''called by constructor and __iadd__ to
+        avoid creating new instances.'''
 
         if refs is not None:
             self.crefs.append(cook_refs(refs))
@@ -196,7 +209,9 @@ class BleuScorer:
         elif option == "average":
             reflen = float(sum(reflens))/len(reflens)
         elif option == "closest":
-            reflen = min((abs(l-testlen), l) for l in reflens)[1]
+            reflen = min(
+                (abs(length - testlen), length) for length in reflens
+            )[1]
         else:
             assert False, "unsupported reflen option %s" % option
 

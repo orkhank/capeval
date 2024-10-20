@@ -9,10 +9,8 @@
 # Authors : Hao Fang <hfang@uw.edu> and Tsung-Yi Lin <tl483@cornell.edu>
 from __future__ import annotations
 
-import itertools
 import os
 import subprocess
-import sys
 import tempfile
 
 # path to the stanford corenlp jar
@@ -85,7 +83,7 @@ class PTBTokenizer:
         # create dictionary for tokenized captions
         # ======================================================
         for k, line in zip(image_id, lines):
-            if not k in final_tokenized_captions_for_image:
+            if k not in final_tokenized_captions_for_image:
                 final_tokenized_captions_for_image[k] = []
             tokenized_caption = ' '.join([
                 w for w in line.rstrip().split(' ')

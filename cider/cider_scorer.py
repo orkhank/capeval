@@ -33,7 +33,8 @@ def cook_refs(refs, n=4):  # lhuang: oracle will call with "average"
     and returns an object that encapsulates everything that BLEU
     needs to know about them.
     :param refs: list of string : reference sentences for some image
-    :param n: int : number of ngrams for which (ngram) representation is calculated
+    :param n: int : number of ngrams for which (ngram) representation is\
+        calculated
     :return: result (list of dict)
     '''
     return [precook(ref, n) for ref in refs]
@@ -43,7 +44,8 @@ def cook_test(test, n=4):
     '''Takes a test sentence and returns an object that
     encapsulates everything that BLEU needs to know about it.
     :param test: list of string : hypothesis sentence for some image
-    :param n: int : number of ngrams for which (ngram) representation is calculated
+    :param n: int : number of ngrams for which (ngram) representation is\
+        calculated
     :return: result (dict)
     '''
     return precook(test, n, True)
@@ -71,7 +73,8 @@ class CiderScorer:
         self.ref_len = None
 
     def cook_append(self, test, refs):
-        '''called by constructor and __iadd__ to avoid creating new instances.'''
+        '''called by constructor and __iadd__ to
+        avoid creating new instances.'''
 
         if refs is not None:
             self.crefs.append(cook_refs(refs))
@@ -108,7 +111,9 @@ class CiderScorer:
         '''
         for refs in self.crefs:
             # refs, k ref captions of one image
-            for ngram in {ngram for ref in refs for (ngram, count) in ref.items()}:
+            for ngram in {
+                ngram for ref in refs for (ngram, count) in ref.items()
+            }:
                 self.document_frequency[ngram] += 1
             # maxcounts[ngram] = max(maxcounts.get(ngram,0), count)
 
@@ -116,7 +121,8 @@ class CiderScorer:
         def counts2vec(cnts):
             """
             Function maps counts of ngram to vector of tfidf weights.
-            The function returns vec, an array of dictionary that store mapping of n-gram and tf-idf weights.
+            The function returns vec, an array of dictionary that store\
+                mapping of n-gram and tf-idf weights.
             The n-th entry of array denotes length of n-grams.
             :param cnts:
             :return: vec (array of dict), norm (array of float), length (int)
@@ -131,7 +137,8 @@ class CiderScorer:
                 n = len(ngram)-1
                 # tf (term_freq) * idf (precomputed idf) for n-grams
                 vec[n][ngram] = float(term_freq)*(self.ref_len - df)
-                # compute norm for the vector.  the norm will be used for computing similarity
+                # compute norm for the vector.
+                # the norm will be used for computing similarity
                 norm[n] += pow(vec[n][ngram], 2)
 
                 if n == 1:
@@ -142,10 +149,14 @@ class CiderScorer:
         def sim(vec_hyp, vec_ref, norm_hyp, norm_ref, length_hyp, length_ref):
             '''
             Compute the cosine similarity of two vectors.
-            :param vec_hyp: array of dictionary for vector corresponding to hypothesis
-            :param vec_ref: array of dictionary for vector corresponding to reference
-            :param norm_hyp: array of float for vector corresponding to hypothesis
-            :param norm_ref: array of float for vector corresponding to reference
+            :param vec_hyp: array of dictionary for vector corresponding to\
+                hypothesis
+            :param vec_ref: array of dictionary for vector corresponding to\
+                reference
+            :param norm_hyp: array of float for vector corresponding to\
+                hypothesis
+            :param norm_ref: array of float for vector corresponding to\
+                reference
             :param length_hyp: int containing length of hypothesis
             :param length_ref: int containing length of reference
             :return: array of score for each n-grams cosine similarity
