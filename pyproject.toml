@@ -1,7 +1,7 @@
 [tool.ruff]
 line-length = 79
 lint.select = ["E", "F", "D", "I"]
-lint.ignore = ["D100", "D105", "D200", "D203", "D212", "I001"]
+lint.ignore = ["D200", "D203", "D212", "I001"]
 extend-exclude = ["*external*", "third_party"]
 src = ["src"]
 target-version = "py310"
