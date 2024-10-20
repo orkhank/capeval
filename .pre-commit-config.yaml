@@ -10,3 +10,4 @@ repos:
       - id: check-json
       - id: check-toml
         exclude: tests/fixtures/invalid_lock/poetry\.lock
+      - id: check-yaml
