@@ -98,5 +98,3 @@ class Spice:
 
     def method(self):
         return "SPICE"
-
-
