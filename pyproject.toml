@@ -1,3 +1,27 @@
+[build-system]
+requires = ["setuptools>=42", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "capeval"
+description = "A collection of caption evaluation tools"
+readme = "README.md"
+long-description-content-type = "text/markdown"
+url = "https://github.com/orkhank/capeval"
+maintainer = "orkhank"
+requires-python = ">=3.10"
+dynamic = ["version"]
+
+[tool.setuptools]
+packages = ["pycocoevalcap", { include = "pycocoevalcap.*" }]
+package-dir = { "pycocoevalcap" = "." }
+package-data = { "*" = ["*.jar", "*.gz"] }
+
+[project.urls]
+homepage = "https://github.com/orkhank/capeval"
+repository = "https://github.com/orkhank/capeval"
+
+
 [tool.ruff]
 line-length = 79
 lint.select = ["E", "F", "D", "I"]
